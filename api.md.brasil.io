@@ -1,0 +1,1 @@
+https://github.com/turicas/covid19-br/blob/master/api.md
