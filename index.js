@@ -5,21 +5,15 @@ const port = 3000;
 const axios = require('axios');
 
 app.get('/api/totalizers', (req, res) => {
-    //api dados recentes por estado Brasil.IO
-    axios.get('https://brasil.io/api/dataset/covid19/caso/data?is_last=True&place_type=state')
+    //api dados recentes portal do governo
+    axios.get('https://xx9p7hp1p7.execute-api.us-east-1.amazonaws.com/prod/PortalGeralApi')
         .then(response => {
-            const resultsByState = response.data.results;
-            const totalizers = resultsByState.reduce((counter, item) => Object.assign({}, {
-                confirmed: counter.confirmed + item.confirmed,
-                deaths: counter.deaths + item.deaths,
-            }), {confirmed:0, deaths:0});
-
-            console.log(totalizers)
+            const totalizers = response.data;
             res.json(totalizers);
         })
         .catch(error => {
-            res.send(error);
+            res.json({error});
         });
 });
 
-app.listen(port, () => console.log(`Hello world app listening on port ${port}!`))
+app.listen(port, () => console.log(`App listening on port ${port}!`))
